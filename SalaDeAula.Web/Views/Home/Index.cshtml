@@ -1,0 +1,49 @@
+﻿@{
+    ViewData["Title"] = "Página Inicial";
+}
+
+<div class="text-center mb-5">
+    <h1 class="display-4 fw-bold text-primary">Sistema Escolar</h1>
+    <p class="lead text-secondary">Bem-vindo ao painel de gerenciamento.</p>
+</div>
+
+<div class="row mt-4">
+    <div class="col-md-4 mb-4">
+        <div class="card shadow-sm h-100 border-start border-primary border-4">
+            <div class="card-body text-center">
+                <h3 class="card-title text-primary">Alunos</h3>
+                <p class="card-text">Gerencie matrículas, edite dados e controle o acesso dos alunos.</p>
+                <hr />
+                <a asp-controller="Alunos" asp-action="Index" class="btn btn-primary w-100">
+                    Acessar Alunos
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-4 mb-4">
+        <div class="card shadow-sm h-100 border-start border-success border-4">
+            <div class="card-body text-center">
+                <h3 class="card-title text-success">Turmas</h3>
+                <p class="card-text">Crie novas turmas, defina anos letivos e organize os cursos.</p>
+                <hr />
+                <a asp-controller="Turmas" asp-action="Index" class="btn btn-outline-success w-100">
+                    Acessar Turmas
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-4 mb-4">
+        <div class="card shadow-sm h-100 border-start border-warning border-4">
+            <div class="card-body text-center">
+                <h3 class="card-title text-warning">Matrículas</h3>
+                <p class="card-text">Vincule alunos às turmas e gerencie a lotação das classes.</p>
+                <hr />
+                <a href="#" class="btn btn-outline-warning w-100 disabled">
+                    Em Breve
+                </a>
+            </div>
+        </div>
+    </div>
+</div>

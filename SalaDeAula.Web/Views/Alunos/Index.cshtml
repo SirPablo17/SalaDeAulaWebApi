@@ -1,0 +1,45 @@
+﻿<table class="table table-hover align-middle">
+    <thead class="table-dark">
+        <tr>
+            <th>ID</th>
+            <th>Status</th>
+            <th>Nome</th>
+            <th>Usuário</th>
+            <th class="text-end">Ações</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>@item.Id</td>
+                <td>
+                    @if (item.Ativo)
+                    {
+                        <span class="badge bg-success">Ativo</span>
+                    }
+                    else
+                    {
+                        <span class="badge bg-danger">Inativo</span>
+                    }
+                </td>
+                <td>@item.Nome</td>
+                <td>@item.Usuario</td>
+                <td class="text-end">
+                    <a asp-action="Edit" asp-route-id="@item.Id" class="btn btn-outline-warning btn-sm">Editar</a>
+
+                    @if (item.Ativo)
+                    {
+                        <a asp-action="Delete" asp-route-id="@item.Id"
+                           class="btn btn-outline-danger btn-sm"
+                           onclick="return confirm('Tem certeza que deseja inativar este aluno?');">Inativar</a>
+                    }
+                    else
+                    {
+                        <button class="btn btn-secondary btn-sm" disabled>Inativado</button>
+                    }
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
