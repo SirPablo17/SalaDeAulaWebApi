@@ -1,0 +1,51 @@
+﻿@model IEnumerable<SalaDeAula.Web.Models.TurmaViewModel>
+
+@{
+    ViewData["Title"] = "Turmas";
+}
+
+<h1>Gerenciamento de Turmas</h1>
+
+<p>
+    <a asp-action="Create" class="btn btn-success">Nova Turma</a>
+</p>
+
+<table class="table table-striped table-hover">
+    <thead class="table-dark">
+        <tr>
+            <th>ID</th>
+            <th>Nome da Turma</th>
+            <th>Ano</th>
+            <th>Curso ID</th>
+            <th>Ações</th>
+            <th>Editar</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>@item.Id</td>
+                <td><strong>@item.NomeTurma</strong></td>
+                <td>
+                    @if (item.Ano == DateTime.Now.Year)
+                    {
+                        <span class="badge bg-primary">@item.Ano</span>
+                    }
+                    else
+                    {
+
+                        @item.Ano
+                    }
+                </td>
+                <td>@item.CursoId</td>
+                <td>
+                    <a asp-action="Delete" asp-route-id="@item.Id" class="btn btn-sm btn-danger" onclick="return confirm('Excluir esta turma?')">Excluir</a>
+                </td>
+                <td>
+                    <a asp-action="Edit" asp-route-id="@item.Id" class="btn btn-sm btn-warning">Editar</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

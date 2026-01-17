@@ -51,5 +51,13 @@ namespace SalaDeAulaWebApi.Repositories
             var sql = "UPDATE aluno SET ativo = 0 WHERE id = @id";
             await conn.ExecuteAsync(sql, new { id });
         }
+
+        public async Task Ativar(int id)
+        {
+            using var conn = new SqlConnection(_connectionString);
+            // A única diferença é o ativo = 1
+            var sql = "UPDATE aluno SET ativo = 1 WHERE id = @id";
+            await conn.ExecuteAsync(sql, new { id });
+        }
     }
 }

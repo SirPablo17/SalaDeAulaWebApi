@@ -123,5 +123,19 @@ namespace SalaDeAula.Web.Controllers
             }
             return RedirectToAction("Index");
         }
+
+        public async Task<IActionResult> Ativar(int id)
+        {
+            using (var httpClient = new HttpClient())
+            {
+                // O PutAsync exige um conteúdo, mesmo que vazio
+                var content = new StringContent("", System.Text.Encoding.UTF8, "application/json");
+
+                // Chamamos a rota específica que criamos
+                var response = await httpClient.PutAsync($"{_baseUrl}/{id}/ativar", content);
+            }
+
+            return RedirectToAction("Index");
+        }
     }
 }

@@ -1,0 +1,111 @@
+﻿@model SalaDeAula.Web.Models.MatriculaViewModel
+
+@{
+    ViewData["Title"] = "Matrículas";
+}
+
+<h1>Gerenciar Matrículas</h1>
+<hr />
+
+<div class="card mb-4 bg-light">
+    <div class="card-body">
+        <form method="get" asp-action="Index" class="row g-3 align-items-center">
+            <div class="col-auto">
+                <label class="col-form-label fw-bold">Selecione a Turma:</label>
+            </div>
+            <div class="col-auto">
+                <select name="turmaId" class="form-select" onchange="this.form.submit()">
+                    <option value="">-- Selecione --</option>
+                    @foreach (var turma in Model.ListaTurmas)
+                    {
+                        // Truque para manter a turma selecionada após recarregar
+                        if (Model.TurmaSelecionadaId == turma.Id)
+                        {
+                            <option value="@turma.Id" selected>@turma.NomeTurma (@turma.Ano)</option>
+                        }
+                        else
+                        {
+                            <option value="@turma.Id">@turma.NomeTurma (@turma.Ano)</option>
+                        }
+                    }
+                </select>
+            </div>
+        </form>
+    </div>
+</div>
+
+@if (Model.TurmaSelecionadaId > 0)
+{
+    @if (TempData["Erro"] != null)
+    {
+        <div class="alert alert-danger">@TempData["Erro"]</div>
+    }
+
+    <div class="row">
+        <div class="col-md-4">
+            <div class="card shadow-sm">
+                <div class="card-header bg-primary text-white">Nova Matrícula</div>
+                <div class="card-body">
+                    <form asp-action="Vincular">
+                        <input type="hidden" asp-for="TurmaSelecionadaId" />
+
+                        <div class="mb-3">
+                            <label class="form-label">Escolha o Aluno:</label>
+                            <select asp-for="AlunoParaAdicionarId" class="form-select" required>
+                                <option value="">-- Selecione --</option>
+                                @foreach (var aluno in Model.ListaAlunosDisponiveis)
+                                {
+                                    // Mostra apenas alunos ativos no combo
+                                    if (aluno.Ativo)
+                                    {
+                                        <option value="@aluno.Id">@aluno.Nome</option>
+                                    }
+                                }
+                            </select>
+                        </div>
+                        <button type="submit" class="btn btn-success w-100">Matricular Aluno</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-8">
+            <h4>Alunos nesta turma:</h4>
+
+            @if (Model.AlunosMatriculados.Count == 0)
+            {
+                <div class="alert alert-warning">Nenhum aluno matriculado nesta turma ainda.</div>
+            }
+            else
+            {
+                <table class="table table-striped">
+                    <thead>
+                        <tr>
+                            <th>Nome</th>
+                            <th>Usuário</th>
+                            <th>Ação</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var aluno in Model.AlunosMatriculados)
+                        {
+                            <tr>
+                                <td>@aluno.Nome</td>
+                                <td>@aluno.Usuario</td>
+                                <td>
+                                    <a asp-action="Remover"
+                                       asp-route-alunoId="@aluno.Id"
+                                       asp-route-turmaId="@Model.TurmaSelecionadaId"
+                                       class="btn btn-outline-danger btn-sm"
+                                       onclick="return confirm('Remover este aluno da turma?')">
+                                        Remover
+                                    </a>
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            }
+        </div>
+    </div>
+}

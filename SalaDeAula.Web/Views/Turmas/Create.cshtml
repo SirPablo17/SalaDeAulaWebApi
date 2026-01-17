@@ -1,0 +1,40 @@
+﻿@model SalaDeAula.Web.Models.TurmaViewModel
+
+@{
+    ViewData["Title"] = "Nova Turma";
+}
+
+<h1>Cadastrar Turma</h1>
+<hr />
+
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Create">
+            <div asp-validation-summary="ModelOnly" class="alert alert-danger" role="alert"></div>
+
+            <div class="form-group mb-3">
+                <label asp-for="CursoId" class="control-label"></label>
+                <input asp-for="CursoId" class="form-control" placeholder="Ex: 1" />
+                <span asp-validation-for="CursoId" class="text-danger"></span>
+            </div>
+
+            <div class="form-group mb-3">
+                <label asp-for="NomeTurma" class="control-label"></label>
+                <input asp-for="NomeTurma" class="form-control" placeholder="Ex: Desenvolvimento Web" />
+                <span asp-validation-for="NomeTurma" class="text-danger"></span>
+            </div>
+
+            <div class="form-group mb-3">
+                <label asp-for="Ano" class="control-label"></label>
+                <input asp-for="Ano" class="form-control" value="@DateTime.Now.Year" />
+                <span asp-validation-for="Ano" class="text-danger"></span>
+                <small class="text-muted">O ano não pode ser anterior a @DateTime.Now.Year</small>
+            </div>
+
+            <div class="form-group">
+                <input type="submit" value="Salvar Turma" class="btn btn-primary" />
+                <a asp-action="Index" class="btn btn-secondary">Voltar</a>
+            </div>
+        </form>
+    </div>
+</div>

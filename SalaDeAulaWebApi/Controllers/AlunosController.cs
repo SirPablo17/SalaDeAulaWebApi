@@ -60,4 +60,22 @@ public class AlunosController : ControllerBase
         await _repository.Atualizar(aluno);
         return Ok("Aluno atualizado!");
     }
+
+    // DELETE: api/Alunos/5
+    [HttpDelete("{id}")]
+    public async Task<IActionResult> Delete(int id)
+    {
+        // Chama o seu método Inativar que acabamos de validar
+        await _repository.Inativar(id);
+
+        return Ok("Aluno inativado.");
+    }
+
+    // PUT: api/Alunos/5/ativar
+    [HttpPut("{id}/ativar")]
+    public async Task<IActionResult> Ativar(int id)
+    {
+        await _repository.Ativar(id);
+        return Ok("Aluno reativado com sucesso.");
+    }
 }

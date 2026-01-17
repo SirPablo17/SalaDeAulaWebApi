@@ -1,5 +1,6 @@
 ﻿using Dapper;
 using System.Data.SqlClient;
+using SalaDeAulaWebApi.Models; // Importante para reconhecer a classe Aluno
 
 public class AlunoTurmaRepository : IAlunoTurmaRepository
 {
@@ -30,5 +31,18 @@ public class AlunoTurmaRepository : IAlunoTurmaRepository
         await conn.ExecuteAsync(
             "DELETE FROM aluno_turma WHERE aluno_id = @alunoId AND turma_id = @turmaId",
             new { alunoId, turmaId });
+    }
+
+    // --- NOVO MÉTODO (ADICIONE ISSO) ---
+    public async Task<IEnumerable<Aluno>> ObterAlunosPorTurma(int turmaId)
+    {
+        using var conn = new SqlConnection(_connectionString);
+        var sql = @"
+            SELECT a.id, a.nome, a.usuario, a.ativo 
+            FROM aluno a
+            INNER JOIN aluno_turma at ON a.id = at.aluno_id
+            WHERE at.turma_id = @turmaId";
+
+        return await conn.QueryAsync<Aluno>(sql, new { turmaId });
     }
 }

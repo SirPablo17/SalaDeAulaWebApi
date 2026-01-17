@@ -4,6 +4,7 @@ var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddScoped<IAlunoRepository, AlunoRepository>();
 builder.Services.AddScoped<ITurmaRepository, TurmaRepository>();
+builder.Services.AddScoped<IAlunoTurmaRepository, AlunoTurmaRepository>();
 
 builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();

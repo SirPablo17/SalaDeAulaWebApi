@@ -9,4 +9,6 @@ public interface IAlunoRepository
     Task<int> Adicionar(Aluno aluno);
     Task Atualizar(Aluno aluno);
     Task Inativar(int id); // Requisito: Inativar Aluno [cite: 38]
+
+    Task Ativar(int id); // Requisito: Inativar Aluno [cite: 38]
 }
